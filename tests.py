@@ -105,3 +105,60 @@ class TestTrees(TestCase):
         print(result)
 
         self.assertEqual(expected, result)
+
+    def test_custom_case(self):
+        date = datetime.datetime.now()
+
+        self.tree.users[1] = User(user_id=1, tariff=1500, purchased=date)
+        self.tree.users[2] = User(user_id=2, ambassador_id=1, tariff=1500, purchased=date)
+        self.tree.users[3] = User(user_id=3, ambassador_id=1, tariff=1500, purchased=date)
+
+        self.tree.users[4] = User(user_id=4, ambassador_id=2, tariff=1500, purchased=date)
+        self.tree.users[5] = User(user_id=5, ambassador_id=2, tariff=1500, purchased=date)
+
+        self.tree.users[6] = User(user_id=6, ambassador_id=3, tariff=1500, purchased=date)
+        self.tree.users[7] = User(user_id=7, ambassador_id=3, tariff=1500, purchased=date)
+
+        self.tree.users[8] = User(user_id=8, ambassador_id=4, tariff=1500, purchased=date)
+        self.tree.users[9] = User(user_id=9, ambassador_id=4, tariff=1500, purchased=date)
+
+        self.tree.users[10] = User(user_id=10, ambassador_id=5, tariff=1500, purchased=date)
+        self.tree.users[11] = User(user_id=11, ambassador_id=5, tariff=1500, purchased=date)
+
+        self.tree.users[12] = User(user_id=12, ambassador_id=6, tariff=500, purchased=date)
+        self.tree.users[13] = User(user_id=13, ambassador_id=6, tariff=1500, purchased=date)
+
+        self.tree.users[14] = User(user_id=14, ambassador_id=7, tariff=1500, purchased=date)
+        self.tree.users[15] = User(user_id=15, ambassador_id=7, tariff=1500, purchased=date)
+
+        self.tree.users[16] = User(user_id=16, ambassador_id=14, tariff=1500, purchased=date)
+        self.tree.users[17] = User(user_id=17, ambassador_id=14, tariff=1500, purchased=date)
+
+        self.tree.users[18] = User(user_id=18, ambassador_id=15, tariff=1500, purchased=date)
+        self.tree.users[19] = User(user_id=19, ambassador_id=15, tariff=1500, purchased=date)
+
+        self.tree.tree_structure = {
+            1: [2, 3],
+            2: [4, 5],
+            3: [6, 7],
+            4: [8, 9],
+            5: [10, 11],
+            6: [12, 13],
+            7: [14, 15],
+            8: [],
+            9: [],
+            10: [],
+            11: [],
+            12: [],
+            13: [],
+            14: [16, 17],
+            15: [18, 19],
+            16: [],
+            17: [],
+            18: [],
+            19: []
+        }
+
+        result = bfs_tree_pass(self.tree)
+        for k, v in result.items():
+            print(k, v)
